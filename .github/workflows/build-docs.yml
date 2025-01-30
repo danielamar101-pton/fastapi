@@ -13,7 +13,7 @@ env:
 
 jobs:
   changes:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     # Required permissions
     permissions:
       pull-requests: read
@@ -43,7 +43,7 @@ jobs:
   langs:
     needs:
       - changes
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       langs: ${{ steps.show-langs.outputs.langs }}
     steps:
@@ -80,7 +80,7 @@ jobs:
       - changes
       - langs
     if: ${{ needs.changes.outputs.docs == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         lang: ${{ fromJson(needs.langs.outputs.langs) }}
@@ -128,7 +128,7 @@ jobs:
     if: always()
     needs:
       - build-docs
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Decide whether the needed jobs succeeded or failed
         uses: re-actors/alls-green@release/v1
